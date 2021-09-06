@@ -5,6 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: docker build -t ssd:assignment1 .
-      - uses: docker run -it --rm --entrypoint /bin/bash ssd:assignment1
-      - run: python /app/src/main.py
+      - name: build docker image
+        run: |
+          docker build -t ssd:assignment1 .
+      - name: go to the docker container
+        run: |
+          docker run -it --rm --entrypoint /bin/bash ssd:assignment1
+      - name: run main file
+        run: python /app/src/main.py
