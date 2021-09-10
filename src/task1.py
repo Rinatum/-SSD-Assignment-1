@@ -13,6 +13,8 @@ class Tracer:
         result = self.f(*args, **kwargs)
         time_used = round(time.time() - start, 4)
         self.__runs[self.f.__name__] += 1
-        print(f"{self.f.__name__} call {self.__runs[self.f.__name__]} executed in {time_used} sec")
+        print(
+            f"{self.f.__name__} call {self.__runs[self.f.__name__]} executed in {time_used} sec"
+        )
 
         return result

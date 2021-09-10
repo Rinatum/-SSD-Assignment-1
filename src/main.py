@@ -9,13 +9,13 @@ def func():
     result = 0
     n = random.randint(10, 751)
     for i in range(n):
-        result += (i ** 2)
+        result += i ** 2
 
 
 @Tracer
 def funx(n=2, m=5):
     print("I am ready to do serious stuff")
-    max_val = float('-inf')
+    max_val = float("-inf")
     n = random.randint(10, 751)
     res = [pow(i, 2) for i in range(n)]
     for i in res:
