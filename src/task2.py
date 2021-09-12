@@ -10,6 +10,7 @@ class Dumper(Tracer):
     """
     Dump the key information about executed function
     """
+
     def dump(self, args, kwargs, output):
         """
         Dump basic info about the decorated function
@@ -46,8 +47,10 @@ Output: {output}
                 with redirect_stdout(std_output):
                     output = self.f(*args, **kwargs)
             dump_info = self.dump(args, kwargs, output)
-            trace_info = f"{self.f.__name__} call {self.context['__runs'][self.f.__name__]} executed in " \
-                         f"{timer.time_delta} sec"
+            trace_info = (
+                f"{self.f.__name__} call {self.context['__runs'][self.f.__name__]} executed in "
+                f"{timer.time_delta} sec"
+            )
             self.log([trace_info, dump_info])
             return output
 
