@@ -1,57 +1,53 @@
-from collections import defaultdict
 from contextlib import redirect_stdout
-from io import StringIO
 from inspect import signature, getsource, Parameter
+from io import StringIO
 
-from task1 import Timer, Tracer
+from task1 import Timer, log
 
 
-class Dumper(Tracer):
+def dump(f, args, kwargs, output):
     """
-    Dump the key information about executed function
+    Dump basic info about the decorated function
     """
-
-    def dump(self, args, kwargs, output):
-        """
-        Dump basic info about the decorated function
-        """
-        sign = signature(self.f)
-        defaults = {
-            k: v.default
-            for k, v in sign.parameters.items()
-            if v.default is not Parameter.empty
-        }
-        key_worded = {**defaults, **kwargs}
-        return f"""  
-Name:   {self.f.__name__}
-Type:   {type(self.f)}
+    sign = signature(f)
+    defaults = {
+        k: v.default
+        for k, v in sign.parameters.items()
+        if v.default is not Parameter.empty
+    }
+    key_worded = {**defaults, **kwargs}
+    return f"""  
+Name:   {f.__name__}
+Type:   {type(f)}
 Sign:   {sign}
 Args:   positional {args} 
-        key=worded {key_worded}
-        
-Doc:    {self.f.__doc__}
+    key=worded {key_worded}
 
-Source: {getsource(self.f)}
+Doc:    {f.__doc__}
+
+Source: {getsource(f)}
 
 Output: {output}
 """
 
-    def __call__(self, f, *args, **kwargs):
-        self.f = f
 
-        def inner_func(*args, **kwargs):
-            self.update_runs()
+def dumper(context):
+    def inner_function(f):
+        def wrapper(*args, **kwargs):
+            context["__runs"][f.__name__] += 1
             timer = Timer()
             std_output = StringIO()
             with timer:
                 with redirect_stdout(std_output):
-                    output = self.f(*args, **kwargs)
-            dump_info = self.dump(args, kwargs, output)
+                    output = f(*args, **kwargs)
+            dump_info = dump(f, args, kwargs, std_output.getvalue())
             trace_info = (
-                f"{self.f.__name__} call {self.context['__runs'][self.f.__name__]} executed in "
+                f"{f.__name__} call {context['__runs'][f.__name__]} executed in "
                 f"{timer.time_delta} sec"
             )
-            self.log([trace_info, dump_info])
+            log([trace_info, dump_info])
             return output
 
-        return inner_func
+        return wrapper
+
+    return inner_function

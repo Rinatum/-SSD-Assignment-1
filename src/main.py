@@ -1,9 +1,10 @@
 import cmath
 import random
+import time
 from collections import defaultdict
 
-from task1 import Tracer
-from task2 import Dumper
+from task2 import dumper
+from task3 import Tracer, Dumper, FilePrinter, TimeRanker
 
 CONTEXT = {"__runs": defaultdict(int)}
 
@@ -21,7 +22,7 @@ def func():
         result += i ** 2
 
 
-@Dumper(context=CONTEXT)
+@dumper(context=CONTEXT)
 def funx(a, n=2, m=5):
     """
     Some important documentation here
@@ -39,7 +40,7 @@ def funx(a, n=2, m=5):
             max_val = i
 
 
-@Dumper(context=CONTEXT)
+@Dumper(context=CONTEXT, printer=FilePrinter("test.txt"))
 def solve_quadratic_equation(a, b, c):
     """
     (Adapted from https://www.javatpoint.com/python-quadratic-equation)
@@ -63,7 +64,7 @@ def solve_quadratic_equation(a, b, c):
     return root_1, root_2
 
 
-@Tracer(context=CONTEXT)
+@Dumper(context=CONTEXT)
 def pascal_triangle(n=5):
     """
     (Adapted from https://www.geeksforgeeks.org/python-program-to-print-pascals-triangle/)
@@ -82,10 +83,41 @@ def pascal_triangle(n=5):
         print(power(i))
 
 
+@Dumper(context=CONTEXT, printer=FilePrinter("test.txt"))
+def sleep(n):
+    time.sleep(n)
+
+
+ranker = TimeRanker(FilePrinter("test2.txt"))
+
+
+@ranker
+def kek():
+    time.sleep(1)
+
+
+@ranker
+def kek2():
+    time.sleep(2)
+
+
+@ranker
+def kek1():
+    time.sleep(3)
+
+
 if __name__ == "__main__":
+    # task 1, 2
     func()
     funx("i")
     func()
     funx("i", n=3)
     pascal_triangle(3)
     solve_quadratic_equation(1, 2, 3)
+    sleep(3)
+    # task 3
+
+    kek()
+    kek1()
+    kek2()
+    ranker.log()
