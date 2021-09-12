@@ -1,3 +1,4 @@
+import cmath
 import random
 from collections import defaultdict
 
@@ -38,9 +39,53 @@ def funx(a, n=2, m=5):
             max_val = i
 
 
+@Dumper(context=CONTEXT)
+def solve_quadratic_equation(a, b, c):
+    """
+    (Adapted from https://www.javatpoint.com/python-quadratic-equation)
+    The function that allows to fund roots of quadratic equation of the form
+    ax^2 + bx + c = 0
+    :param a:
+    :param b:
+    :param c:
+    """
+
+    discriminant = lambda a_, b_, c_: (b_ ** 2) - (4 * a_ * c_)
+
+    # discriminant
+    d = discriminant(a, b, c)
+
+    # roots
+    root_1 = (-b - cmath.sqrt(d)) / (2 * a)
+    root_2 = (-b + cmath.sqrt(d)) / (2 * a)
+    print(f"The solution : {root_1} ; {root_2}")
+
+    return root_1, root_2
+
+
+@Tracer(context=CONTEXT)
+def pascal_triangle(n=5):
+    """
+    (Adapted from https://www.geeksforgeeks.org/python-program-to-print-pascals-triangle/)
+    Print pascal triangle of n based on powers of 11 approach
+    :param n: depth of pascal triangle
+    """
+
+    spacer = lambda n_, i_: " " * (n_ - i_)
+    power = lambda i_: " ".join(map(str, str(11 ** i)))
+
+    # iterarte upto n
+    for i in range(n):
+        # handle spaces
+        print(spacer(n, i), end="")
+        # compute powers of 11
+        print(power(i))
+
+
 if __name__ == "__main__":
     func()
     funx("i")
     func()
     funx("i", n=3)
-    func()
+    pascal_triangle(3)
+    solve_quadratic_equation(1, 2, 3)
