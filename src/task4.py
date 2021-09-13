@@ -4,8 +4,7 @@ from contextlib import redirect_stdout
 from datetime import datetime
 from io import StringIO
 
-from src.task1 import Timer
-from src.task3 import Printer, StdOutPrinter, FilePrinter
+from src.task3 import Printer, StdOutPrinter
 
 
 class ErrorHanler:

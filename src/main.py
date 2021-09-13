@@ -3,9 +3,9 @@ import random
 import time
 from collections import defaultdict
 
-from task2 import dumper
-from task3 import Tracer, Dumper, FilePrinter, TimeRanker
-from task4 import ErrorHanler
+from src.task2 import dumper
+from src.task3 import Tracer, Dumper, FilePrinter, TimeRanker
+from src.task4 import ErrorHanler
 
 CONTEXT = {"__runs": defaultdict(int)}
 

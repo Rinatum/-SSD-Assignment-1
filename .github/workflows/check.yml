@@ -12,7 +12,7 @@ jobs:
       - uses: addnab/docker-run-action@v3
         with:
           image: ssd:assignment1
-          run: python ./src/main.py
+          run: PYTHONPATH="$PWD" python ./src/main.py
       - uses: addnab/docker-run-action@v3
         with:
           image: ssd:assignment1
