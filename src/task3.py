@@ -7,16 +7,28 @@ from task2 import dump
 
 
 class Printer:
+    """
+    Basic printer class
+    """
+
     def print_(self, raw):
         pass
 
 
 class StdOutPrinter(Printer):
+    """
+    Prints to stdout
+    """
+
     def print_(self, raw):
         print(raw)
 
 
 class FilePrinter(Printer):
+    """
+    Prints to file
+    """
+
     def __init__(self, filepath):
         super().__init__()
         self.filepath = filepath
@@ -31,7 +43,7 @@ class Tracer:
     The class that allows to trace function execution as decorator
     """
 
-    def __init__(self, context, printer: Printer = Printer()):
+    def __init__(self, context, printer: Printer = StdOutPrinter()):
         """
         :param context: the context in which we want to trace
         """
@@ -99,6 +111,10 @@ class Dumper(Tracer):
 
 
 class TimeRanker:
+    """
+    Class to rank functions by time execution
+    """
+
     def __init__(self, printer: Printer = StdOutPrinter()):
         self.func2time = {}
         self.printer = printer
@@ -118,28 +134,3 @@ class TimeRanker:
         self.printer.print_("PROGRAM | RANK | TIME ELAPSED")
         for i, (func_name, time_ellapsed) in enumerate(sorted_tuples):
             self.printer.print_(f"{func_name}   {i + 1}   {time_ellapsed}")
-
-
-ranker = TimeRanker()
-
-
-@ranker
-def kek():
-    time.sleep(1)
-
-
-@ranker
-def kek2():
-    time.sleep(2)
-
-
-@ranker
-def kek1():
-    time.sleep(3)
-
-
-kek()
-kek1()
-kek2()
-
-ranker.log()

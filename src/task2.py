@@ -27,7 +27,7 @@ Doc:    {f.__doc__}
 
 Source: {getsource(f)}
 
-Output: {output}
+Output: \n{output}
 """
 
 

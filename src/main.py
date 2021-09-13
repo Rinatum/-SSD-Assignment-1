@@ -5,6 +5,7 @@ from collections import defaultdict
 
 from task2 import dumper
 from task3 import Tracer, Dumper, FilePrinter, TimeRanker
+from task4 import ErrorHanler
 
 CONTEXT = {"__runs": defaultdict(int)}
 
@@ -106,6 +107,12 @@ def kek1():
     time.sleep(3)
 
 
+@ErrorHanler(FilePrinter("exceptions.txt"))
+@Dumper(CONTEXT)
+def get_error():
+    raise Exception("Oh")
+
+
 if __name__ == "__main__":
     # task 1, 2
     func()
@@ -121,3 +128,6 @@ if __name__ == "__main__":
     kek1()
     kek2()
     ranker.log()
+
+    # task4
+    get_error()
