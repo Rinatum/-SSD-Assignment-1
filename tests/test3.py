@@ -40,7 +40,7 @@ def test_dumper():
         "Args:   positional",
         "key=worded",
         "Sleeeep",
-        '@Dumper'
+        "@Dumper",
     ]
     std_output = StringIO()
     with redirect_stdout(std_output):
@@ -52,11 +52,7 @@ def test_dumper():
 
 
 def test_ranker():
-    table = [
-        "kek   1",
-        "kek2   2",
-        "kek1   3"
-    ]
+    table = ["kek   1", "kek2   2", "kek1   3"]
 
     ranker = TimeRanker()
 

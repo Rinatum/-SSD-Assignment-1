@@ -24,7 +24,7 @@ def test_dumper():
         "Args:   positional",
         "key=worded",
         "Sleeeep",
-        '@dumper'
+        "@dumper",
     ]
     std_output = StringIO()
     with redirect_stdout(std_output):

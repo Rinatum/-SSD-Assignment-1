@@ -13,10 +13,7 @@ def get_error():
 
 
 def test_error_handler():
-    corrects = [
-        "Traceback",
-        "Exception: Oh"
-    ]
+    corrects = ["Traceback", "Exception: Oh"]
 
     get_error()
 
