@@ -4,6 +4,6 @@ COPY src /app/src
 COPY tests /app/tests
 COPY requirements.txt /app/requirements.txt
 
-WORKDIR /app/src
+WORKDIR /app
 
 RUN pip install -r /app/requirements.txt
