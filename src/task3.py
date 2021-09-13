@@ -2,8 +2,8 @@ import time
 from contextlib import redirect_stdout
 from io import StringIO
 
-from task1 import Timer
-from task2 import dump
+from src.task1 import Timer
+from src.task2 import dump
 
 
 class Printer:

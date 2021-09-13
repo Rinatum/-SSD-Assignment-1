@@ -2,7 +2,7 @@ from contextlib import redirect_stdout
 from inspect import signature, getsource, Parameter
 from io import StringIO
 
-from task1 import Timer, log
+from src.task1 import Timer, log
 
 
 def dump(f, args, kwargs, output):
@@ -25,7 +25,7 @@ Args:   positional {args}
 
 Doc:    {f.__doc__}
 
-Source: {getsource(f)}
+Source: \n{getsource(f)}
 
 Output: \n{output}
 """
